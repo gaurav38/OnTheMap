@@ -15,6 +15,8 @@
 		C63D6C441DECC3FC00A7B01D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C63D6C421DECC3FC00A7B01D /* LaunchScreen.storyboard */; };
 		C63D6C4F1DECC3FC00A7B01D /* OnTheMapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C63D6C4E1DECC3FC00A7B01D /* OnTheMapTests.swift */; };
 		C63D6C5A1DECC3FC00A7B01D /* OnTheMapUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C63D6C591DECC3FC00A7B01D /* OnTheMapUITests.swift */; };
+		C63D6C6B1DECC7FE00A7B01D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C63D6C6A1DECC7FE00A7B01D /* LoginViewController.swift */; };
+		C63D6C6D1DECDA3300A7B01D /* BetterTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C63D6C6C1DECDA3300A7B01D /* BetterTextField.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +51,8 @@
 		C63D6C551DECC3FC00A7B01D /* OnTheMapUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OnTheMapUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C63D6C591DECC3FC00A7B01D /* OnTheMapUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnTheMapUITests.swift; sourceTree = "<group>"; };
 		C63D6C5B1DECC3FC00A7B01D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C63D6C6A1DECC7FE00A7B01D /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		C63D6C6C1DECDA3300A7B01D /* BetterTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BetterTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,10 +103,10 @@
 		C63D6C361DECC3FC00A7B01D /* OnTheMap */ = {
 			isa = PBXGroup;
 			children = (
+				C63D6C691DECC74B00A7B01D /* Views */,
+				C63D6C681DECC74400A7B01D /* Models */,
+				C63D6C671DECC72A00A7B01D /* Controllers */,
 				C63D6C371DECC3FC00A7B01D /* AppDelegate.swift */,
-				C63D6C391DECC3FC00A7B01D /* FirstViewController.swift */,
-				C63D6C3B1DECC3FC00A7B01D /* SecondViewController.swift */,
-				C63D6C3D1DECC3FC00A7B01D /* Main.storyboard */,
 				C63D6C401DECC3FC00A7B01D /* Assets.xcassets */,
 				C63D6C421DECC3FC00A7B01D /* LaunchScreen.storyboard */,
 				C63D6C451DECC3FC00A7B01D /* Info.plist */,
@@ -126,6 +130,32 @@
 				C63D6C5B1DECC3FC00A7B01D /* Info.plist */,
 			);
 			path = OnTheMapUITests;
+			sourceTree = "<group>";
+		};
+		C63D6C671DECC72A00A7B01D /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				C63D6C391DECC3FC00A7B01D /* FirstViewController.swift */,
+				C63D6C3B1DECC3FC00A7B01D /* SecondViewController.swift */,
+				C63D6C6A1DECC7FE00A7B01D /* LoginViewController.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		C63D6C681DECC74400A7B01D /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		C63D6C691DECC74B00A7B01D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				C63D6C3D1DECC3FC00A7B01D /* Main.storyboard */,
+				C63D6C6C1DECDA3300A7B01D /* BetterTextField.swift */,
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -265,6 +295,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C63D6C6D1DECDA3300A7B01D /* BetterTextField.swift in Sources */,
+				C63D6C6B1DECC7FE00A7B01D /* LoginViewController.swift in Sources */,
 				C63D6C3C1DECC3FC00A7B01D /* SecondViewController.swift in Sources */,
 				C63D6C381DECC3FC00A7B01D /* AppDelegate.swift in Sources */,
 				C63D6C3A1DECC3FC00A7B01D /* FirstViewController.swift in Sources */,
