@@ -19,14 +19,14 @@ class StudentsLocationsMapViewController: UIViewController, MKMapViewDelegate {
         super.viewDidLoad()
         parseStudentsLocations()
         mapView.delegate = self
-        mapView.addAnnotations(annotations)
+        refreshView()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         parseStudentsLocations()
         mapView.delegate = self
-        mapView.addAnnotations(annotations)
+        refreshView()
     }
     
     private func parseStudentsLocations() {
@@ -84,10 +84,29 @@ class StudentsLocationsMapViewController: UIViewController, MKMapViewDelegate {
         }
     }
 
+    @IBAction func refreshStudentsLocations(_ sender: Any) {
+        OnTheMapClient.shared.getStudentsLocations() { (response, error) in
+            if error == nil {
+                print("Got the data!")
+                DispatchQueue.main.async {
+                    self.refreshView()
+                }
+            } else {
+                print(error!)
+            }
+        }
+    }
+    
     @IBAction func postInformation(_ sender: Any) {
         let viewController = self.storyboard!.instantiateViewController(withIdentifier: "InformationPostViewController")
         
         self.present(viewController, animated: true, completion: nil)
+    }
+    
+    func refreshView() {
+        annotations.removeAll()
+        parseStudentsLocations()
+        mapView.addAnnotations(annotations)
     }
 
 }

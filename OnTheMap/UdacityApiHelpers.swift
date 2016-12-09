@@ -61,7 +61,6 @@ extension OnTheMapClient {
         
         let url = getParseURLFromParameters(parameters: parameters, withPathExtension: ParseMethods.StudentsLocation)
         
-        print(url)
         var request = URLRequest(url: url)
         request.addValue(OnTheMapClient.UdacityHeaderValues.X_Parse_Application_Id, forHTTPHeaderField: OnTheMapClient.UdacityHeaderKeys.X_Parse_Application_Id)
         request.addValue(OnTheMapClient.UdacityHeaderValues.X_Parse_REST_API_Key, forHTTPHeaderField: OnTheMapClient.UdacityHeaderKeys.X_Parse_REST_API_Key)

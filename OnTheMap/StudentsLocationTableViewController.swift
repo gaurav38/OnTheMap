@@ -14,17 +14,16 @@ class StudentsLocationTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        parseStudentsLocations()
-        tableView.reloadData()
+        refreshView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        parseStudentsLocations()
-        tableView.reloadData()
+        refreshView()
     }
 
+    // Mark: - TableView delegate
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "studentlocationcell")! as UITableViewCell
         cell.imageView?.image = #imageLiteral(resourceName: "pin")
@@ -48,10 +47,21 @@ class StudentsLocationTableViewController: UITableViewController {
             if let first = dictionary["firstName"] as? String,
                 let last = dictionary["lastName"] as? String,
                 let mediaURL = dictionary["mediaURL"] as? String {
-    
-                    print("\(first) \(last), \(mediaURL)")
                     let student = UdacityStudent(studentName: "\(first) \(last)", studentLink: mediaURL)
                     self.studentsLocations.append(student)
+            }
+        }
+    }
+    
+    @IBAction func refreshStudentsLocations(_ sender: Any) {
+        OnTheMapClient.shared.getStudentsLocations() { (response, error) in
+            if error == nil {
+                print("Got the data!")
+                DispatchQueue.main.async {
+                    self.refreshView()
+                }
+            } else {
+                print(error!)
             }
         }
     }
@@ -60,6 +70,12 @@ class StudentsLocationTableViewController: UITableViewController {
         let viewController = self.storyboard!.instantiateViewController(withIdentifier: "InformationPostViewController")
         
         self.present(viewController, animated: true, completion: nil)
+    }
+    
+    func refreshView() {
+        studentsLocations.removeAll()
+        parseStudentsLocations()
+        tableView.reloadData()
     }
     
 }

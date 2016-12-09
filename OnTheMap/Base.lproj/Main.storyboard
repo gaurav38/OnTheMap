@@ -58,7 +58,11 @@
                     <navigationItem key="navigationItem" title="OnTheMap" id="HBR-CR-Y6i">
                         <barButtonItem key="leftBarButtonItem" title="Logout" id="5TZ-At-d78" userLabel="Logout Button"/>
                         <rightBarButtonItems>
-                            <barButtonItem systemItem="refresh" id="3lL-XL-7R7" userLabel="Refresh Button"/>
+                            <barButtonItem systemItem="refresh" id="3lL-XL-7R7" userLabel="Refresh Button">
+                                <connections>
+                                    <action selector="refreshStudentsLocations:" destination="9pv-A4-QxB" id="Sqr-GW-l9g"/>
+                                </connections>
+                            </barButtonItem>
                             <barButtonItem image="pin" id="QsL-vc-BET" userLabel="Post Button">
                                 <connections>
                                     <action selector="postInformation:" destination="9pv-A4-QxB" id="dIh-Yg-OuM"/>
@@ -102,7 +106,11 @@
                     <navigationItem key="navigationItem" title="OnTheMap" id="bWr-Rr-MUd">
                         <barButtonItem key="leftBarButtonItem" title="Logout" id="MVf-IS-hSk" userLabel="Logout Button"/>
                         <rightBarButtonItems>
-                            <barButtonItem systemItem="refresh" id="0EF-Z0-lVP" userLabel="Refresh Button"/>
+                            <barButtonItem systemItem="refresh" id="0EF-Z0-lVP" userLabel="Refresh Button">
+                                <connections>
+                                    <action selector="refreshStudentsLocations:" destination="4JJ-Ci-gMH" id="iUs-mY-yGz"/>
+                                </connections>
+                            </barButtonItem>
                             <barButtonItem image="pin" id="3zF-KP-fFA" userLabel="Post Button">
                                 <connections>
                                     <action selector="postInformation:" destination="4JJ-Ci-gMH" id="2Nn-YU-BJo"/>
