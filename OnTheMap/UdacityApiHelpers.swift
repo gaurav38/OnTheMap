@@ -68,7 +68,19 @@ extension OnTheMapClient {
         let _ = taskForGETMethod(request, isUdacityRequest: false) { (response, error) in
             if error == nil {
                 if let response = response?["results"] as? [[String: AnyObject]] {
-                    self.studentsLocations = response
+                    self.studentsLocations.removeAll()
+                    for dictionary in response {
+                        
+                        if let first = dictionary["firstName"] as? String,
+                            let last = dictionary["lastName"] as? String,
+                            let mediaURL = dictionary["mediaURL"] as? String,
+                            let lat = dictionary["latitude"] as? Double,
+                            let long = dictionary["longitude"] as? Double {
+                            
+                            let studentLocation = StudentLocation(firstName: first, lastName: last, mediaURL: mediaURL, latitude: lat, longitude: long)
+                            self.studentsLocations.append(studentLocation)
+                        }
+                    }
                     completionHandler(self.studentsLocations as AnyObject?, nil)
                 }
             } else {

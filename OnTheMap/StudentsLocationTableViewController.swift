@@ -10,16 +10,14 @@ import UIKit
 
 class StudentsLocationTableViewController: UITableViewController {
     
-    var studentsLocations = [UdacityStudent]()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        refreshView()
+        tableView.reloadData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        refreshView()
+        tableView.reloadData()
     }
 
     // Mark: - TableView delegate
@@ -27,30 +25,20 @@ class StudentsLocationTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "studentlocationcell")! as UITableViewCell
         cell.imageView?.image = #imageLiteral(resourceName: "pin")
-        cell.textLabel?.text = studentsLocations[indexPath.row].studentName
+        let firstName = OnTheMapClient.shared.studentsLocations[indexPath.row].firstName
+        let lastName = OnTheMapClient.shared.studentsLocations[indexPath.row].lastName
+        cell.textLabel?.text = "\(firstName) \(lastName)"
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let openLink = URL(string: studentsLocations[indexPath.row].studentLink)
+        let openLink = URL(string: OnTheMapClient.shared.studentsLocations[indexPath.row].mediaURL)
         print(openLink!)
         UIApplication.shared.open(openLink!, options: [String: AnyObject](), completionHandler: nil)
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return studentsLocations.count
-    }
-    
-    private func parseStudentsLocations() {
-        for dictionary in OnTheMapClient.shared.studentsLocations! {
-    
-            if let first = dictionary["firstName"] as? String,
-                let last = dictionary["lastName"] as? String,
-                let mediaURL = dictionary["mediaURL"] as? String {
-                    let student = UdacityStudent(studentName: "\(first) \(last)", studentLink: mediaURL)
-                    self.studentsLocations.append(student)
-            }
-        }
+        return OnTheMapClient.shared.studentsLocations.count
     }
     
     @IBAction func refreshStudentsLocations(_ sender: Any) {
@@ -58,7 +46,7 @@ class StudentsLocationTableViewController: UITableViewController {
             if error == nil {
                 print("Got the data!")
                 DispatchQueue.main.async {
-                    self.refreshView()
+                    self.tableView.reloadData()
                 }
             } else {
                 print(error!)
@@ -71,12 +59,5 @@ class StudentsLocationTableViewController: UITableViewController {
         
         self.present(viewController, animated: true, completion: nil)
     }
-    
-    func refreshView() {
-        studentsLocations.removeAll()
-        parseStudentsLocations()
-        tableView.reloadData()
-    }
-    
 }
 

@@ -16,7 +16,7 @@ class OnTheMapClient {
     var sessionId: String?
     var userId: String?
     
-    var studentsLocations: [[String: AnyObject]]?
+    var studentsLocations = [StudentLocation]()
     
     func taskForPOSTMethod(_ request: URLRequest, isUdacityRequest: Bool, completionHandler: @escaping(_ result: AnyObject?, _ error: String?) -> Void) -> URLSessionDataTask {
         
