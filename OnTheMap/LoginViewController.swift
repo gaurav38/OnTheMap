@@ -8,12 +8,19 @@
 
 import UIKit
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, UITextFieldDelegate {
 
+    @IBOutlet weak var emailTextField: BetterTextField!
+    @IBOutlet weak var passwordTextField: BetterTextField!
+    @IBOutlet weak var loginWithUdacityButton: UIButton!
+    @IBOutlet weak var signUpButton: UIButton!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        emailTextField.delegate = self
+        passwordTextField.delegate = self
     }
 
     override func didReceiveMemoryWarning() {
@@ -21,15 +28,79 @@ class LoginViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    // MARK: - Text Field delegates
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField == emailTextField && textField.text! == "Email" {
+            textField.text = ""
+        }
     }
-    */
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    // MARK: - Udacity Login
+    
+    @IBAction func UdacityLoginButtonClicked(_ sender: Any) {
+        emailTextField.resignFirstResponder()
+        passwordTextField.resignFirstResponder()
+        disableUI()
+        activityIndicator.startAnimating()
+        
+        OnTheMapClient.shared.loginCurrentUser(userName: emailTextField.text!, password: passwordTextField.text!) { (sucess: Bool?, error: String?) in
+            if error == nil {
+                print("Login successful")
+                self.loadStudentsLocations()
+            } else {
+                DispatchQueue.main.async {
+                    self.showErrorToUser(error: error!)
+                    self.enableUI()
+                }
+            }
+        }
+    }
+    
+    private func showErrorToUser(error: String) {
+        let alertController = UIAlertController(title: "Login failed!", message: error, preferredStyle: UIAlertControllerStyle.alert)
+        alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+        self.present(alertController, animated: true, completion: nil)
+    }
 
+    @IBAction func SignUpButtonClicked(_ sender: Any) {
+        let openLink = URL(string: OnTheMapClient.Constants.UdacitySignUpPage)
+        UIApplication.shared.open(openLink!, options: [String: AnyObject](), completionHandler: nil)
+    }
+    
+    private func loadStudentsLocations() {
+        OnTheMapClient.shared.getStudentsLocations() { (response, error) in
+            if error == nil {
+                print("Got the data!")
+            } else {
+                print(error!)
+            }
+            DispatchQueue.main.async {
+                self.activityIndicator.stopAnimating()
+                self.performSegue(withIdentifier: "LaunchTabView", sender: self)
+            }
+        }
+    }
+
+}
+
+extension LoginViewController {
+    func disableUI() {
+        emailTextField.isEnabled = false
+        passwordTextField.isEnabled = false
+        loginWithUdacityButton.isEnabled = false
+        signUpButton.isEnabled = false
+    }
+    
+    func enableUI() {
+        emailTextField.isEnabled = true
+        passwordTextField.isEnabled = true
+        loginWithUdacityButton.isEnabled = true
+        signUpButton.isEnabled = true
+    }
 }
