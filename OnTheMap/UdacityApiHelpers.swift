@@ -15,7 +15,7 @@ extension OnTheMapClient {
             if error != nil {
                 completionHandler(false, error!)
             } else {
-                self.getPublicUserData(userId: self.userId!) { (success, error) in
+                self.getPublicUserData { (success, error) in
                     if error != nil {
                         completionHandler(false, error!)
                     } else {
@@ -26,13 +26,50 @@ extension OnTheMapClient {
         }
     }
     
+    func loginCurrentUserWithFacebook(completionHandler: @escaping (_ success: Bool?, _ error: String?) -> Void) {
+        getUdacitySessionIdWithFacebook { (success, error) in
+            if error != nil {
+                completionHandler(false, error!)
+            } else {
+                self.getPublicUserData { (success, error) in
+                    if error != nil {
+                        completionHandler(false, error!)
+                    } else {
+                        completionHandler(true, nil)
+                    }
+                }
+            }
+        }
+    }
+    
+    func getUdacitySessionIdWithFacebook(completionHandler: @escaping (_ success: Bool?, _ error: String?) -> Void) {
+        var request = URLRequest(url: getUdacityURLFromParameters(parameters: [String: AnyObject](), withPathExtension: UdacityMethods.Login))
+        
+        request.httpMethod = "POST"
+        request.httpBody = "{\"facebook_mobile\": {\"access_token\": \"\(facebookAccessToken)\"}}".data(using: String.Encoding.utf8)
+        
+        let _ = taskForPOSTMethod(request, isUdacityRequest: true) { (response, error) in
+            if error == nil {
+                if let response = response {
+                    if let account = response[UdacityResponseKeys.Account] as? [String: AnyObject] {
+                        self.userId = account[UdacityResponseKeys.UserId] as? String
+                    }
+                    if let session = response[UdacityResponseKeys.Session] as? [String: AnyObject] {
+                        self.sessionId = session[UdacityResponseKeys.SessionId] as? String
+                    }
+                }
+                completionHandler(true, nil)
+            } else {
+                completionHandler(false, error)
+            }
+        }
+    }
+    
     func getUdacitySessionId(username: String, password: String, completionHandler: @escaping (_ success: Bool?, _ error: String?) -> Void) {
         
         var request = URLRequest(url: getUdacityURLFromParameters(parameters: [String: AnyObject](), withPathExtension: UdacityMethods.Login))
         
         request.httpMethod = "POST"
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpBody = "{\"udacity\": {\"username\": \"\(username)\", \"password\": \"\(password)\"}}".data(using: String.Encoding.utf8)
         
         let _ = taskForPOSTMethod(request, isUdacityRequest: true) { (response, error) in
@@ -96,8 +133,7 @@ extension OnTheMapClient {
         request.httpMethod = "POST"
         request.addValue(UdacityHeaderValues.X_Parse_Application_Id, forHTTPHeaderField: UdacityHeaderKeys.X_Parse_Application_Id)
         request.addValue(UdacityHeaderValues.X_Parse_REST_API_Key, forHTTPHeaderField: UdacityHeaderKeys.X_Parse_REST_API_Key)
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
         request.httpBody = "{\"\(ParseBodyKeys.UserId)\": \"\(currentUser!.userId)\", \"\(ParseBodyKeys.FirstName)\": \"\(currentUser!.firstName)\", \"\(ParseBodyKeys.LastName)\": \"\(currentUser!.lastName)\",\"\(ParseBodyKeys.Address)\": \"\(address)\", \"\(ParseBodyKeys.MediaURL)\": \"\(mediaURL)\",\"\(ParseBodyKeys.Latitude)\": \(latitude), \"\(ParseBodyKeys.Longitude)\": \(longitude)}".data(using: String.Encoding.utf8)
         
         let _ = taskForPOSTMethod(request, isUdacityRequest: false) { (response, error) in
@@ -109,16 +145,16 @@ extension OnTheMapClient {
         }
     }
     
-    func getPublicUserData(userId: String, completionHandler: @escaping (_ success: Bool?, _ error: String?) -> Void) {
+    func getPublicUserData(completionHandler: @escaping (_ success: Bool?, _ error: String?) -> Void) {
         
-        let request = URLRequest(url: getUdacityURLFromParameters(parameters: [String: AnyObject](), withPathExtension: "\(UdacityMethods.UserPublicProfile)/\(userId)"))
+        let request = URLRequest(url: getUdacityURLFromParameters(parameters: [String: AnyObject](), withPathExtension: "\(UdacityMethods.UserPublicProfile)/\(self.userId!)"))
         
         let _ = taskForGETMethod(request, isUdacityRequest: true) { (response, error) in
             if error == nil {
                 if let user = response?["user"] as? [String: AnyObject] {
                     if let firstName = user[UdacityResponseKeys.firstName] as? String,
                         let lastName = user[UdacityResponseKeys.lastName] as? String {
-                        self.currentUser = LocalUser(firstName: firstName, lastName: lastName, userId: userId)
+                        self.currentUser = LocalUser(firstName: firstName, lastName: lastName, userId: self.userId!)
                         completionHandler(true, nil)
                     } else {
                         completionHandler(false, "Unable to fetch user data")

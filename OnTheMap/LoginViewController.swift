@@ -7,18 +7,24 @@
 //
 
 import UIKit
+import FacebookLogin
 
-class LoginViewController: UIViewController, UITextFieldDelegate {
+class LoginViewController: UIViewController, UITextFieldDelegate, LoginButtonDelegate {
 
     @IBOutlet weak var emailTextField: BetterTextField!
     @IBOutlet weak var passwordTextField: BetterTextField!
     @IBOutlet weak var loginWithUdacityButton: UIButton!
     @IBOutlet weak var signUpButton: UIButton!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var rootStackView: UIStackView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        let facebookLoginButton = LoginButton(readPermissions: [.publicProfile])
+        facebookLoginButton.delegate = self
+        rootStackView.addArrangedSubview(facebookLoginButton)
+        
         emailTextField.delegate = self
         passwordTextField.delegate = self
     }
@@ -26,6 +32,37 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    // Mark: - Facebook login
+    
+    func loginButtonDidCompleteLogin(_ loginButton: LoginButton, result: LoginResult) {
+        switch result {
+        case .failed(let error):
+            print(error)
+        case .cancelled:
+            print("User cancelled login.")
+        case .success( _, _, let accessToken):
+            print("Facebook login successful!")
+            activityIndicator.startAnimating()
+            OnTheMapClient.shared.facebookAccessToken = accessToken.authenticationToken
+            print("Facebook token: \(accessToken.authenticationToken)")
+            OnTheMapClient.shared.loginCurrentUserWithFacebook { (success, error) in
+                if error == nil {
+                    print("Established seesion with Udacity using Facebook.")
+                    self.loadStudentsLocations()
+                } else {
+                    DispatchQueue.main.async {
+                        self.showErrorToUser(error: error!)
+                        self.enableUI()
+                    }
+                }
+            }
+        }
+    }
+    
+    func loginButtonDidLogOut(_ loginButton: LoginButton) {
+        return
     }
     
     // MARK: - Text Field delegates
@@ -86,7 +123,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             }
         }
     }
-
 }
 
 extension LoginViewController {

@@ -15,12 +15,18 @@ class OnTheMapClient {
     var currentUser: LocalUser? = nil
     var sessionId: String?
     var userId: String?
+    var facebookAccessToken: String?
     
     var studentsLocations = [StudentLocation]()
     
     func taskForPOSTMethod(_ request: URLRequest, isUdacityRequest: Bool, completionHandler: @escaping(_ result: AnyObject?, _ error: String?) -> Void) -> URLSessionDataTask {
         
         print(request.url!)
+        
+        var request = request
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
         let task = session.dataTask(with: request) { (data, response, error) in
             
             func sendError(_ error: String) {

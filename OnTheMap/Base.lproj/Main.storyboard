@@ -92,7 +92,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="60"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4Bz-84-og8" id="T0L-qn-V9l">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="59"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="59.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -375,6 +375,7 @@
                         <outlet property="emailTextField" destination="Hvs-JV-C2w" id="r0B-wE-gWP"/>
                         <outlet property="loginWithUdacityButton" destination="46j-Zn-9JY" id="Nla-3T-3n5"/>
                         <outlet property="passwordTextField" destination="AnJ-sk-KqR" id="jge-EF-DSs"/>
+                        <outlet property="rootStackView" destination="PAt-MM-Oys" id="JtM-Tk-PJA"/>
                         <outlet property="signUpButton" destination="mxk-9s-tr8" id="qMo-24-4n5"/>
                         <segue destination="49e-Tb-3d3" kind="presentation" identifier="LaunchTabView" id="Wjc-SK-pzq"/>
                     </connections>
