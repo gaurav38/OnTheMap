@@ -19,11 +19,18 @@ class OnTheMapClient {
     
     var studentsLocations = [StudentLocation]()
     
-    func taskForPOSTMethod(_ request: URLRequest, isUdacityRequest: Bool, completionHandler: @escaping(_ result: AnyObject?, _ error: String?) -> Void) -> URLSessionDataTask {
+    func taskForPOSTMethod(_ request: URLRequest, _ parameters: [String: AnyObject], isUdacityRequest: Bool, completionHandler: @escaping(_ result: AnyObject?, _ error: String?) -> Void) -> URLSessionDataTask {
         
         print(request.url!)
         
         var request = request
+        request.httpMethod = "POST"
+        if let jsonData = try? JSONSerialization.data(withJSONObject: parameters, options: .prettyPrinted) {
+            request.httpBody = jsonData
+        } else {
+            print("error sending params as JSON, params: \(parameters)")
+            completionHandler(nil, "Oops! Something went wrong!")
+        }
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
@@ -36,7 +43,7 @@ class OnTheMapClient {
             /* GUARD: Was there an error? */
             guard error == nil else {
                 print("[taskForPOSTMethod]: \(error!.localizedDescription)")
-                if error!.localizedDescription == "The network connection was lost." {
+                if error!.localizedDescription == "The Internet connection appears to be offline." {
                     sendError(error!.localizedDescription)
                 } else {
                     sendError("There was an error with your request \(error)")

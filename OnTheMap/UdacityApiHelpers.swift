@@ -43,12 +43,11 @@ extension OnTheMapClient {
     }
     
     func getUdacitySessionIdWithFacebook(completionHandler: @escaping (_ success: Bool?, _ error: String?) -> Void) {
-        var request = URLRequest(url: getUdacityURLFromParameters(parameters: [String: AnyObject](), withPathExtension: UdacityMethods.Login))
+        let request = URLRequest(url: getUdacityURLFromParameters(parameters: [String: AnyObject](), withPathExtension: UdacityMethods.Login))
         
-        request.httpMethod = "POST"
-        request.httpBody = "{\"facebook_mobile\": {\"access_token\": \"\(facebookAccessToken)\"}}".data(using: String.Encoding.utf8)
+        let parameters = ["facebook_mobile": ["access_token":  facebookAccessToken!]]
         
-        let _ = taskForPOSTMethod(request, isUdacityRequest: true) { (response, error) in
+        let _ = taskForPOSTMethod(request, parameters as [String: AnyObject], isUdacityRequest: true) { (response, error) in
             if error == nil {
                 if let response = response {
                     if let account = response[UdacityResponseKeys.Account] as? [String: AnyObject] {
@@ -67,12 +66,10 @@ extension OnTheMapClient {
     
     func getUdacitySessionId(username: String, password: String, completionHandler: @escaping (_ success: Bool?, _ error: String?) -> Void) {
         
-        var request = URLRequest(url: getUdacityURLFromParameters(parameters: [String: AnyObject](), withPathExtension: UdacityMethods.Login))
+        let request = URLRequest(url: getUdacityURLFromParameters(parameters: [String: AnyObject](), withPathExtension: UdacityMethods.Login))
+        let parameters = ["udacity": ["username": username, "password": password]]
         
-        request.httpMethod = "POST"
-        request.httpBody = "{\"udacity\": {\"username\": \"\(username)\", \"password\": \"\(password)\"}}".data(using: String.Encoding.utf8)
-        
-        let _ = taskForPOSTMethod(request, isUdacityRequest: true) { (response, error) in
+        let _ = taskForPOSTMethod(request, parameters as [String : AnyObject], isUdacityRequest: true) { (response, error) in
             if error == nil {
                 if let response = response {
                     if let account = response[UdacityResponseKeys.Account] as? [String: AnyObject] {
@@ -130,13 +127,19 @@ extension OnTheMapClient {
 
         var request = URLRequest(url: getParseURLFromParameters(parameters: [String: AnyObject](), withPathExtension: ParseMethods.StudentsLocation))
         
-        request.httpMethod = "POST"
         request.addValue(UdacityHeaderValues.X_Parse_Application_Id, forHTTPHeaderField: UdacityHeaderKeys.X_Parse_Application_Id)
         request.addValue(UdacityHeaderValues.X_Parse_REST_API_Key, forHTTPHeaderField: UdacityHeaderKeys.X_Parse_REST_API_Key)
+        let parameters = [
+            ParseBodyKeys.UserId: currentUser!.userId,
+            ParseBodyKeys.FirstName: currentUser!.firstName,
+            ParseBodyKeys.LastName: currentUser!.lastName,
+            ParseBodyKeys.Address: address,
+            ParseBodyKeys.MediaURL: mediaURL,
+            ParseBodyKeys.Latitude: latitude,
+            ParseBodyKeys.Longitude: longitude
+        ] as [String : Any]
         
-        request.httpBody = "{\"\(ParseBodyKeys.UserId)\": \"\(currentUser!.userId)\", \"\(ParseBodyKeys.FirstName)\": \"\(currentUser!.firstName)\", \"\(ParseBodyKeys.LastName)\": \"\(currentUser!.lastName)\",\"\(ParseBodyKeys.Address)\": \"\(address)\", \"\(ParseBodyKeys.MediaURL)\": \"\(mediaURL)\",\"\(ParseBodyKeys.Latitude)\": \(latitude), \"\(ParseBodyKeys.Longitude)\": \(longitude)}".data(using: String.Encoding.utf8)
-        
-        let _ = taskForPOSTMethod(request, isUdacityRequest: false) { (response, error) in
+        let _ = taskForPOSTMethod(request, parameters as [String : AnyObject], isUdacityRequest: false) { (response, error) in
             if error != nil {
                 completionHandler(false, "Could not post your location")
             } else {
