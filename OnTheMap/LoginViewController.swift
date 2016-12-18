@@ -21,7 +21,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, LoginButtonDel
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let facebookLoginButton = LoginButton(readPermissions: [.publicProfile])
+        let facebookLoginButton = LoginButton(readPermissions: [.publicProfile, .email])
         facebookLoginButton.delegate = self
         rootStackView.addArrangedSubview(facebookLoginButton)
         
@@ -55,6 +55,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, LoginButtonDel
                     DispatchQueue.main.async {
                         self.showErrorToUser(error: error!)
                         self.enableUI()
+                        self.activityIndicator.stopAnimating()
                     }
                 }
             }
@@ -94,6 +95,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, LoginButtonDel
                 DispatchQueue.main.async {
                     self.showErrorToUser(error: error!)
                     self.enableUI()
+                    self.activityIndicator.stopAnimating()
                 }
             }
         }

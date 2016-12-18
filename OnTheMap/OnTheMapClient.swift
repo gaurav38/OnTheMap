@@ -36,7 +36,11 @@ class OnTheMapClient {
             /* GUARD: Was there an error? */
             guard error == nil else {
                 print("[taskForPOSTMethod]: \(error!.localizedDescription)")
-                sendError("There was an error with your request \(error)")
+                if error!.localizedDescription == "The network connection was lost." {
+                    sendError(error!.localizedDescription)
+                } else {
+                    sendError("There was an error with your request \(error)")
+                }
                 return
             }
             

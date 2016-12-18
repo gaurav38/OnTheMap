@@ -69,6 +69,7 @@
 		C63D6C7C1DF1163400A7B01D /* UdacityStudent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UdacityStudent.swift; sourceTree = "<group>"; };
 		C63D6C7E1DF3592800A7B01D /* InformationPostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InformationPostViewController.swift; sourceTree = "<group>"; };
 		C63D6C801DF4B68000A7B01D /* LocalUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalUser.swift; sourceTree = "<group>"; };
+		C6DF60731E06E905007A39DA /* OnTheMap.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = OnTheMap.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +132,7 @@
 		C63D6C361DECC3FC00A7B01D /* OnTheMap */ = {
 			isa = PBXGroup;
 			children = (
+				C6DF60731E06E905007A39DA /* OnTheMap.entitlements */,
 				C63D6C691DECC74B00A7B01D /* Views */,
 				C63D6C681DECC74400A7B01D /* Models */,
 				C63D6C671DECC72A00A7B01D /* Controllers */,
@@ -273,6 +275,11 @@
 						CreatedOnToolsVersion = 8.1;
 						DevelopmentTeam = YBP3LRB395;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 0;
+							};
+						};
 					};
 					C63D6C491DECC3FC00A7B01D = {
 						CreatedOnToolsVersion = 8.1;
@@ -665,6 +672,7 @@
 				C63D6C601DECC3FC00A7B01D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C63D6C611DECC3FC00A7B01D /* Build configuration list for PBXNativeTarget "OnTheMapTests" */ = {
 			isa = XCConfigurationList;
@@ -673,6 +681,7 @@
 				C63D6C631DECC3FC00A7B01D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C63D6C641DECC3FC00A7B01D /* Build configuration list for PBXNativeTarget "OnTheMapUITests" */ = {
 			isa = XCConfigurationList;
@@ -681,6 +690,7 @@
 				C63D6C661DECC3FC00A7B01D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
