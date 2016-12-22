@@ -44,10 +44,15 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="RnR-to-3qH">
                                 <rect key="frame" x="0.0" y="64" width="375" height="559"/>
                             </mapView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="fln-0r-wyU">
+                                <rect key="frame" x="177" y="323" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="fln-0r-wyU" firstAttribute="centerY" secondItem="RnR-to-3qH" secondAttribute="centerY" id="W1e-T2-Z20"/>
                             <constraint firstItem="RnR-to-3qH" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leading" id="aOF-GX-goX"/>
+                            <constraint firstItem="fln-0r-wyU" firstAttribute="centerX" secondItem="RnR-to-3qH" secondAttribute="centerX" id="ctv-bo-XMw"/>
                             <constraint firstAttribute="trailing" secondItem="RnR-to-3qH" secondAttribute="trailing" id="dL5-Qg-XaT"/>
                             <constraint firstItem="4ug-Mw-9AY" firstAttribute="top" secondItem="RnR-to-3qH" secondAttribute="bottom" id="mXg-ks-EMK"/>
                             <constraint firstItem="RnR-to-3qH" firstAttribute="top" secondItem="Ia1-K6-d13" secondAttribute="bottom" id="ugT-ew-yhT"/>
@@ -76,6 +81,7 @@
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="fln-0r-wyU" id="k4Q-R8-1mj"/>
                         <outlet property="mapView" destination="RnR-to-3qH" id="jFt-YR-7Xl"/>
                     </connections>
                 </viewController>
@@ -92,11 +98,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="studentlocationcell" rowHeight="60" id="4Bz-84-og8">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="studentlocationcell" rowHeight="60" id="4Bz-84-og8">
                                 <rect key="frame" x="0.0" y="28" width="375" height="60"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4Bz-84-og8" id="T0L-qn-V9l">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="59.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="59"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -147,10 +153,10 @@
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="HXn-3U-aEO" userLabel="Header view">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="105"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="129"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fzq-eT-4ur">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="0.0"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="24"/>
                                                 <fontDescription key="fontDescription" type="system" weight="thin" pointSize="18"/>
                                                 <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="9" maxY="0.0"/>
                                                 <state key="normal" title="Cancel">
@@ -161,7 +167,7 @@
                                                 </connections>
                                             </button>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Where are you studying today?" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="gpl-ZT-NZi">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="105"/>
+                                                <rect key="frame" x="0.0" y="24" width="375" height="105"/>
                                                 <color key="backgroundColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="105" id="7xh-Xw-JtQ"/>
@@ -172,18 +178,21 @@
                                             </textView>
                                         </subviews>
                                     </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="249" ambiguous="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="6Bx-8Z-9O2" userLabel="FindOnMapView">
-                                        <rect key="frame" x="0.0" y="105" width="375" height="414"/>
+                                    <view contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="249" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FIC-wq-Q7Y" userLabel="FindOnTheMapView">
+                                        <rect key="frame" x="0.0" y="129" width="375" height="60"/>
                                         <subviews>
-                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="249" ambiguous="YES" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="lgB-ez-GEm">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="354"/>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="249" ambiguous="YES" misplaced="YES" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="lgB-ez-GEm">
+                                                <rect key="frame" x="0.0" y="-177" width="375" height="354"/>
                                                 <color key="backgroundColor" red="0.098039215686274508" green="0.39215686274509803" blue="0.62745098039215685" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="22"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
-                                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gwK-Nx-PEb">
-                                                <rect key="frame" x="0.0" y="354" width="375" height="60"/>
+                                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="8dp-E4-N50">
+                                                <rect key="frame" x="169" y="7" width="37" height="37"/>
+                                            </activityIndicatorView>
+                                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gwK-Nx-PEb">
+                                                <rect key="frame" x="0.0" y="-5" width="375" height="60"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Neo-JH-YyY">
                                                         <rect key="frame" x="98" y="12" width="180" height="36"/>
@@ -208,15 +217,27 @@
                                                 </constraints>
                                             </view>
                                         </subviews>
-                                    </stackView>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstItem="8dp-E4-N50" firstAttribute="centerX" secondItem="lgB-ez-GEm" secondAttribute="centerX" id="3EG-3n-8bo"/>
+                                            <constraint firstItem="lgB-ez-GEm" firstAttribute="top" secondItem="FIC-wq-Q7Y" secondAttribute="top" id="7Yg-Wp-yd6"/>
+                                            <constraint firstAttribute="bottom" secondItem="gwK-Nx-PEb" secondAttribute="bottom" id="8a9-b7-2T2"/>
+                                            <constraint firstItem="8dp-E4-N50" firstAttribute="centerY" secondItem="lgB-ez-GEm" secondAttribute="centerY" id="9zr-1j-aI0"/>
+                                            <constraint firstItem="lgB-ez-GEm" firstAttribute="bottom" secondItem="gwK-Nx-PEb" secondAttribute="top" id="ffT-FD-0Nk"/>
+                                            <constraint firstItem="gwK-Nx-PEb" firstAttribute="leading" secondItem="FIC-wq-Q7Y" secondAttribute="leading" id="jWB-HX-fh4"/>
+                                            <constraint firstAttribute="trailing" secondItem="lgB-ez-GEm" secondAttribute="trailing" id="jfr-Tn-SVT"/>
+                                            <constraint firstAttribute="trailing" secondItem="gwK-Nx-PEb" secondAttribute="trailing" id="olc-Ea-ldZ"/>
+                                            <constraint firstItem="lgB-ez-GEm" firstAttribute="leading" secondItem="FIC-wq-Q7Y" secondAttribute="leading" id="xgc-cU-hCQ"/>
+                                        </constraints>
+                                    </view>
                                     <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="249" ambiguous="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="uyF-os-u7z" userLabel="ShowOnMapView">
-                                        <rect key="frame" x="0.0" y="519" width="375" height="128"/>
+                                        <rect key="frame" x="0.0" y="189" width="375" height="458"/>
                                         <subviews>
                                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="249" ambiguous="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="vey-Mw-Kdc">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="68"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="398"/>
                                             </mapView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LBB-Ij-QKD">
-                                                <rect key="frame" x="0.0" y="68" width="375" height="60"/>
+                                                <rect key="frame" x="0.0" y="398" width="375" height="60"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KX9-3t-Lvy" userLabel="SubmitButton">
                                                         <rect key="frame" x="127" y="12" width="120" height="36"/>
@@ -254,9 +275,10 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="8dp-E4-N50" id="cKE-vO-QYw"/>
                         <outlet property="cancelButton" destination="Fzq-eT-4ur" id="pSA-ec-zQK"/>
                         <outlet property="findOnMapButton" destination="Neo-JH-YyY" id="Gz5-1y-8HK"/>
-                        <outlet property="findOnMapView" destination="6Bx-8Z-9O2" id="34o-kd-rsw"/>
+                        <outlet property="findOnTheMapView" destination="FIC-wq-Q7Y" id="jjt-Sz-N0e"/>
                         <outlet property="headerTextView" destination="gpl-ZT-NZi" id="iYz-B2-eJT"/>
                         <outlet property="mapView" destination="vey-Mw-Kdc" id="JNw-qb-3Zx"/>
                         <outlet property="showOnMapView" destination="uyF-os-u7z" id="ot2-bp-8L7"/>

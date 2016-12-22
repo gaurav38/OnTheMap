@@ -25,20 +25,20 @@ class StudentsLocationTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "studentlocationcell")! as UITableViewCell
         cell.imageView?.image = #imageLiteral(resourceName: "pin")
-        let firstName = OnTheMapClient.shared.studentsLocations[indexPath.row].firstName
-        let lastName = OnTheMapClient.shared.studentsLocations[indexPath.row].lastName
+        let firstName = StudentInformation.studentsInformation[indexPath.row].firstName
+        let lastName = StudentInformation.studentsInformation[indexPath.row].lastName
         cell.textLabel?.text = "\(firstName) \(lastName)"
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let openLink = URL(string: OnTheMapClient.shared.studentsLocations[indexPath.row].mediaURL)
+        let openLink = URL(string: StudentInformation.studentsInformation[indexPath.row].mediaURL)
         print(openLink!)
         UIApplication.shared.open(openLink!, options: [String: AnyObject](), completionHandler: nil)
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return OnTheMapClient.shared.studentsLocations.count
+        return StudentInformation.studentsInformation.count
     }
     
     @IBAction func logout(_ sender: Any) {
@@ -51,6 +51,9 @@ class StudentsLocationTableViewController: UITableViewController {
                 }
             } else {
                 print(error!)
+                DispatchQueue.main.async {
+                    self.showErrorToUser(title: "Failed!", message: "Error during log-out.")
+                }
             }
         }
     }
@@ -64,6 +67,9 @@ class StudentsLocationTableViewController: UITableViewController {
                 }
             } else {
                 print(error!)
+                DispatchQueue.main.async {
+                    self.showErrorToUser(title: "Failed!", message: "Error during refresh.")
+                }
             }
         }
     }
@@ -72,6 +78,12 @@ class StudentsLocationTableViewController: UITableViewController {
         let viewController = self.storyboard!.instantiateViewController(withIdentifier: "InformationPostViewController")
         
         self.present(viewController, animated: true, completion: nil)
+    }
+    
+    private func showErrorToUser(title: String, message: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
+        alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+        self.present(alertController, animated: true, completion: nil)
     }
 }
 

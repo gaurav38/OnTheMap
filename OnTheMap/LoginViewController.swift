@@ -117,15 +117,15 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         OnTheMapClient.shared.getStudentsLocations() { (response, error) in
             if error == nil {
                 print("Got the data!")
+                DispatchQueue.main.async {
+                    self.activityIndicator.stopAnimating()
+                    self.performSegue(withIdentifier: "LaunchTabView", sender: self)
+                }
             } else {
                 print(error!)
                 DispatchQueue.main.async {
                     self.showErrorToUser(title: "Failed!", message: "Failed to get students information.")
                 }
-            }
-            DispatchQueue.main.async {
-                self.activityIndicator.stopAnimating()
-                self.performSegue(withIdentifier: "LaunchTabView", sender: self)
             }
         }
     }

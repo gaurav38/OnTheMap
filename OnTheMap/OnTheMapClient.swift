@@ -17,8 +17,6 @@ class OnTheMapClient {
     var userId: String?
     var facebookAccessToken: String?
     
-    var studentsLocations = [StudentLocation]()
-    
     func taskForPOSTMethod(_ request: URLRequest, _ parameters: [String: AnyObject], isUdacityRequest: Bool, completionHandler: @escaping(_ result: AnyObject?, _ error: String?) -> Void) -> URLSessionDataTask {
         
         print(request.url!)

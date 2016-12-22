@@ -15,6 +15,7 @@ class StudentsLocationsMapViewController: UIViewController, MKMapViewDelegate {
     var annotations = [MKPointAnnotation]()
     
     @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,7 +29,7 @@ class StudentsLocationsMapViewController: UIViewController, MKMapViewDelegate {
     }
     
     private func createAnnotations() {
-        for studentLocation in OnTheMapClient.shared.studentsLocations {
+        for studentLocation in StudentInformation.studentsInformation {
             let coordinate = CLLocationCoordinate2D(latitude: CLLocationDegrees(studentLocation.latitude), longitude: CLLocationDegrees(studentLocation.longitude))
             
             let annotation = MKPointAnnotation()
@@ -72,14 +73,20 @@ class StudentsLocationsMapViewController: UIViewController, MKMapViewDelegate {
     }
 
     @IBAction func refreshStudentsLocations(_ sender: Any) {
+        activityIndicator.startAnimating()
         OnTheMapClient.shared.getStudentsLocations() { (response, error) in
             if error == nil {
                 print("Got the data!")
                 DispatchQueue.main.async {
+                    self.activityIndicator.stopAnimating()
                     self.refreshView()
                 }
             } else {
                 print(error!)
+                DispatchQueue.main.async {
+                    self.activityIndicator.stopAnimating()
+                    self.showErrorToUser(title: "Failed!", message: "Error during refresh.")
+                }
             }
         }
     }
@@ -94,6 +101,9 @@ class StudentsLocationsMapViewController: UIViewController, MKMapViewDelegate {
                 }
             } else {
                 print(error!)
+                DispatchQueue.main.async {
+                    self.showErrorToUser(title: "Failed!", message: "Error during log-out.")
+                }
             }
         }
     }
@@ -108,6 +118,12 @@ class StudentsLocationsMapViewController: UIViewController, MKMapViewDelegate {
         annotations.removeAll()
         createAnnotations()
         mapView.addAnnotations(annotations)
+    }
+    
+    private func showErrorToUser(title: String, message: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
+        alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+        self.present(alertController, animated: true, completion: nil)
     }
 
 }

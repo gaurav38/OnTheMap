@@ -14,11 +14,12 @@ class InformationPostViewController: UIViewController, UITextViewDelegate {
     @IBOutlet weak var findOnMapButton: UIButton!
     @IBOutlet weak var submitButton: UIButton!
     @IBOutlet weak var cancelButton: UIButton!
-    @IBOutlet weak var findOnMapView: UIStackView!
     @IBOutlet weak var userInputLocation: UITextView!
+    @IBOutlet weak var findOnTheMapView: UIView!
     @IBOutlet weak var headerTextView: UITextView!
     @IBOutlet weak var showOnMapView: UIStackView!
     @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     let blueColor = UIColor(red: 25, green: 100, blue: 192)
     let headerFont = UIFont.systemFont(ofSize: 26, weight: UIFontWeightThin)
@@ -52,6 +53,7 @@ class InformationPostViewController: UIViewController, UITextViewDelegate {
     
     func forwardGeocoding(address: String) {
         CLGeocoder().geocodeAddressString(address, completionHandler: { (placemarks, error) in
+            self.activityIndicator.stopAnimating()
             if error != nil {
                 print(error!)
                 self.showErrorToUser(error: "Could not determine location")
@@ -87,6 +89,7 @@ class InformationPostViewController: UIViewController, UITextViewDelegate {
     
     @IBAction func findAddressOnMap(_ sender: Any) {
         userAddress = userInputLocation.text!
+        activityIndicator.startAnimating()
         forwardGeocoding(address: userInputLocation.text!)
     }
 
@@ -135,7 +138,7 @@ class InformationPostViewController: UIViewController, UITextViewDelegate {
     }
     
     private func setUIToSubmitState() {
-        findOnMapView.isHidden = true
+        findOnTheMapView.isHidden = true
         showOnMapView.isHidden = false
         view.backgroundColor = blueColor
         cancelButton.backgroundColor = blueColor
