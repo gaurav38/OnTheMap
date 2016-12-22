@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import FBSDKLoginKit
 
 class StudentsLocationsMapViewController: UIViewController, MKMapViewDelegate {
 
@@ -82,6 +83,10 @@ class StudentsLocationsMapViewController: UIViewController, MKMapViewDelegate {
             }
         }
     }
+    
+//    func logout() {
+//        OnTheMapClient.shared.logoutUsingFacebook()
+//    }
     
     @IBAction func postInformation(_ sender: Any) {
         let viewController = self.storyboard!.instantiateViewController(withIdentifier: "InformationPostViewController")

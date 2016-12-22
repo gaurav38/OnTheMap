@@ -80,17 +80,9 @@ class InformationPostViewController: UIViewController, UITextViewDelegate {
         let annotation = MKPointAnnotation()
         annotation.coordinate = coordinate!
         mapView.addAnnotation(annotation)
-        
-        var zoomRect = MKMapRectNull
-        let annotationPoint = MKMapPointForCoordinate(coordinate!)
-        let pointRect = MKMapRectMake(annotationPoint.x, annotationPoint.y, 0.1, 0.1)
-        if MKMapRectIsNull(zoomRect) {
-            zoomRect = pointRect
-        } else {
-            zoomRect = MKMapRectUnion(zoomRect, pointRect)
-        }
-        
-        mapView.setVisibleMapRect(zoomRect, animated: true)
+        let span = MKCoordinateSpanMake(0.075, 0.075)
+        let region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: (coordinate?.latitude)!, longitude: (coordinate?.longitude)!), span: span)
+        mapView.setRegion(region, animated: true)
     }
     
     @IBAction func findAddressOnMap(_ sender: Any) {

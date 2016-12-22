@@ -41,6 +41,10 @@ class StudentsLocationTableViewController: UITableViewController {
         return OnTheMapClient.shared.studentsLocations.count
     }
     
+//    func logout() {
+//        OnTheMapClient.shared.logoutUsingFacebook()
+//    }
+    
     @IBAction func refreshStudentsLocations(_ sender: Any) {
         OnTheMapClient.shared.getStudentsLocations() { (response, error) in
             if error == nil {

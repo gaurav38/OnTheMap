@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="5Hs-fe-jve">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="5Hs-fe-jve">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
@@ -56,7 +56,6 @@
                     <tabBarItem key="tabBarItem" title="Map" image="map" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="OnTheMap" id="HBR-CR-Y6i">
-                        <barButtonItem key="leftBarButtonItem" title="Logout" id="5TZ-At-d78" userLabel="Logout Button"/>
                         <rightBarButtonItems>
                             <barButtonItem systemItem="refresh" id="3lL-XL-7R7" userLabel="Refresh Button">
                                 <connections>
@@ -104,7 +103,6 @@
                     </tableView>
                     <tabBarItem key="tabBarItem" title="List" image="list" id="vKs-dU-5hj"/>
                     <navigationItem key="navigationItem" title="OnTheMap" id="bWr-Rr-MUd">
-                        <barButtonItem key="leftBarButtonItem" title="Logout" id="MVf-IS-hSk" userLabel="Logout Button"/>
                         <rightBarButtonItems>
                             <barButtonItem systemItem="refresh" id="0EF-Z0-lVP" userLabel="Refresh Button">
                                 <connections>
@@ -303,7 +301,7 @@
                                                 <color key="backgroundColor" red="0.94901960784313721" green="0.66666666666666663" blue="0.43137254901960786" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
                                             </textField>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Password" clearsOnBeginEditing="YES" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="AnJ-sk-KqR" userLabel="Password Text Field" customClass="BetterTextField" customModule="OnTheMap" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="44" width="303" height="36"/>

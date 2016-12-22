@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import FBSDKLoginKit
 
 extension OnTheMapClient {
     
@@ -26,21 +27,28 @@ extension OnTheMapClient {
         }
     }
     
-    func loginCurrentUserWithFacebook(completionHandler: @escaping (_ success: Bool?, _ error: String?) -> Void) {
-        getUdacitySessionIdWithFacebook { (success, error) in
-            if error != nil {
-                completionHandler(false, error!)
-            } else {
-                self.getPublicUserData { (success, error) in
-                    if error != nil {
-                        completionHandler(false, error!)
-                    } else {
-                        completionHandler(true, nil)
-                    }
-                }
-            }
-        }
-    }
+//    func loginCurrentUserWithFacebook(completionHandler: @escaping (_ success: Bool?, _ error: String?) -> Void) {
+//        getUdacitySessionIdWithFacebook { (success, error) in
+//            if error != nil {
+//                completionHandler(false, error!)
+//            } else {
+//                self.getPublicUserData { (success, error) in
+//                    if error != nil {
+//                        completionHandler(false, error!)
+//                    } else {
+//                        completionHandler(true, nil)
+//                    }
+//                }
+//            }
+//        }
+//    }
+    
+//    func logoutUsingFacebook() {
+//        let manager = FBSDKLoginManager()
+//        manager.logOut()
+//        FBSDKAccessToken.setCurrent(nil)
+//        FBSDKProfile.setCurrent(nil)
+//    }
     
     func getUdacitySessionIdWithFacebook(completionHandler: @escaping (_ success: Bool?, _ error: String?) -> Void) {
         let request = URLRequest(url: getUdacityURLFromParameters(parameters: [String: AnyObject](), withPathExtension: UdacityMethods.Login))
