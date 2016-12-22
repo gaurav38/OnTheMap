@@ -56,6 +56,11 @@
                     <tabBarItem key="tabBarItem" title="Map" image="map" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="OnTheMap" id="HBR-CR-Y6i">
+                        <barButtonItem key="leftBarButtonItem" title="Logout" id="TqW-n4-hcB">
+                            <connections>
+                                <action selector="logout:" destination="9pv-A4-QxB" id="CUS-u1-umP"/>
+                            </connections>
+                        </barButtonItem>
                         <rightBarButtonItems>
                             <barButtonItem systemItem="refresh" id="3lL-XL-7R7" userLabel="Refresh Button">
                                 <connections>
@@ -103,6 +108,11 @@
                     </tableView>
                     <tabBarItem key="tabBarItem" title="List" image="list" id="vKs-dU-5hj"/>
                     <navigationItem key="navigationItem" title="OnTheMap" id="bWr-Rr-MUd">
+                        <barButtonItem key="leftBarButtonItem" title="Logout" id="uVy-mc-ta3">
+                            <connections>
+                                <action selector="logout:" destination="4JJ-Ci-gMH" id="jK9-wK-Fyn"/>
+                            </connections>
+                        </barButtonItem>
                         <rightBarButtonItems>
                             <barButtonItem systemItem="refresh" id="0EF-Z0-lVP" userLabel="Refresh Button">
                                 <connections>
@@ -261,7 +271,7 @@
         <!--LoginViewController-->
         <scene sceneID="EPG-Hh-Xbt">
             <objects>
-                <viewController title="LoginViewController" id="5Hs-fe-jve" customClass="LoginViewController" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginViewController" title="LoginViewController" id="5Hs-fe-jve" customClass="LoginViewController" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="VsB-Td-kCK"/>
                         <viewControllerLayoutGuide type="bottom" id="OrJ-9E-VTq"/>

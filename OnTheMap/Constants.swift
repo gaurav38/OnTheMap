@@ -34,13 +34,14 @@ extension OnTheMapClient {
     }
     
     struct UdacityHeaderValues {
-        static let X_Parse_Application_Id = "QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr"
-        static let X_Parse_REST_API_Key = "QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY"
+        static let Parse_Application_Id = "QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr"
+        static let Parse_REST_API_Key = "QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY"
     }
     
     struct UdacityHeaderKeys {
-        static let X_Parse_Application_Id = "X-Parse-Application-Id"
-        static let X_Parse_REST_API_Key = "X-Parse-REST-API-Key"
+        static let Parse_Application_Id = "X-Parse-Application-Id"
+        static let Parse_REST_API_Key = "X-Parse-REST-API-Key"
+        static let Cookie = "X-XSRF-TOKEN"
     }
     
     struct ParseMethods {

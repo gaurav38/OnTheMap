@@ -104,8 +104,8 @@ extension OnTheMapClient {
         let url = getParseURLFromParameters(parameters: parameters, withPathExtension: ParseMethods.StudentsLocation)
         
         var request = URLRequest(url: url)
-        request.addValue(OnTheMapClient.UdacityHeaderValues.X_Parse_Application_Id, forHTTPHeaderField: OnTheMapClient.UdacityHeaderKeys.X_Parse_Application_Id)
-        request.addValue(OnTheMapClient.UdacityHeaderValues.X_Parse_REST_API_Key, forHTTPHeaderField: OnTheMapClient.UdacityHeaderKeys.X_Parse_REST_API_Key)
+        request.addValue(OnTheMapClient.UdacityHeaderValues.Parse_Application_Id, forHTTPHeaderField: OnTheMapClient.UdacityHeaderKeys.Parse_Application_Id)
+        request.addValue(OnTheMapClient.UdacityHeaderValues.Parse_REST_API_Key, forHTTPHeaderField: OnTheMapClient.UdacityHeaderKeys.Parse_REST_API_Key)
         
         let _ = taskForGETMethod(request, isUdacityRequest: false) { (response, error) in
             if error == nil {
@@ -135,8 +135,8 @@ extension OnTheMapClient {
 
         var request = URLRequest(url: getParseURLFromParameters(parameters: [String: AnyObject](), withPathExtension: ParseMethods.StudentsLocation))
         
-        request.addValue(UdacityHeaderValues.X_Parse_Application_Id, forHTTPHeaderField: UdacityHeaderKeys.X_Parse_Application_Id)
-        request.addValue(UdacityHeaderValues.X_Parse_REST_API_Key, forHTTPHeaderField: UdacityHeaderKeys.X_Parse_REST_API_Key)
+        request.addValue(UdacityHeaderValues.Parse_Application_Id, forHTTPHeaderField: UdacityHeaderKeys.Parse_Application_Id)
+        request.addValue(UdacityHeaderValues.Parse_REST_API_Key, forHTTPHeaderField: UdacityHeaderKeys.Parse_REST_API_Key)
         let parameters = [
             ParseBodyKeys.UserId: currentUser!.userId,
             ParseBodyKeys.FirstName: currentUser!.firstName,
@@ -173,6 +173,29 @@ extension OnTheMapClient {
                 }
             } else {
                 completionHandler(false, "Unable to fetch user data")
+            }
+        }
+    }
+    
+    func logoutCurrentUser(completionHandler: @escaping (_ success: Bool?, _ error: String?) -> Void) {
+        var request = URLRequest(url: getUdacityURLFromParameters(parameters: [String: AnyObject](), withPathExtension: UdacityMethods.Login))
+        request.httpMethod = "DELETE"
+        var xsrfCookie: HTTPCookie? = nil
+        let sharedCookieStorage = HTTPCookieStorage.shared
+        for cookie in sharedCookieStorage.cookies! {
+            if cookie.name == "XSRF-TOKEN" {
+                xsrfCookie = cookie
+            }
+        }
+        if let xsrfCookie = xsrfCookie {
+            request.setValue(xsrfCookie.value, forHTTPHeaderField: UdacityHeaderKeys.Cookie)
+        }
+        let _ = taskForDELETEMethod(request, isUdacityRequest: true) { (response, error) in
+            if (error == nil) {
+                completionHandler(true, nil)
+            } else {
+                print(error!)
+                completionHandler(false, "Failed to logout")
             }
         }
     }

@@ -9,13 +9,61 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "OnTheMap/OnTheMapClient.swift"
-            timestampString = "503775982.613467"
+            filePath = "OnTheMap/StudentsLocationTableViewController.swift"
+            timestampString = "504112042.909023"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "61"
-            endingLineNumber = "61"
-            landmarkName = "taskForPOSTMethod(_:_:isUdacityRequest:completionHandler:)"
+            startingLineNumber = "47"
+            endingLineNumber = "47"
+            landmarkName = "logout(_:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "OnTheMap.StudentsLocationTableViewController.(logout (Any) -&gt; ()).(closure #1)"
+                  moduleName = "OnTheMap"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/gsaraf/Documents/iOS-nanodegree/OnTheMap/OnTheMap/StudentsLocationTableViewController.swift"
+                  timestampString = "504112092.406207"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "47"
+                  endingLineNumber = "47"
+                  offsetFromSymbolStart = "168">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "OnTheMap.StudentsLocationTableViewController.(logout (Any) -&gt; ()).(closure #1).(closure #1)"
+                  moduleName = "OnTheMap"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/gsaraf/Documents/iOS-nanodegree/OnTheMap/OnTheMap/StudentsLocationTableViewController.swift"
+                  timestampString = "504112092.407854"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "48"
+                  endingLineNumber = "48"
+                  offsetFromSymbolStart = "20">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "OnTheMap/OnTheMapClient.swift"
+            timestampString = "504112064.061641"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "129"
+            endingLineNumber = "129"
+            landmarkName = "taskForDELETEMethod(_:isUdacityRequest:completionHandler:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -26,12 +74,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "OnTheMap/OnTheMapClient.swift"
-            timestampString = "503775982.613467"
+            timestampString = "504112065.31711"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "57"
-            endingLineNumber = "57"
-            landmarkName = "taskForPOSTMethod(_:_:isUdacityRequest:completionHandler:)"
+            startingLineNumber = "136"
+            endingLineNumber = "136"
+            landmarkName = "taskForDELETEMethod(_:isUdacityRequest:completionHandler:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -42,12 +90,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "OnTheMap/OnTheMapClient.swift"
-            timestampString = "503779222.932954"
+            timestampString = "504112066.76154"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "45"
-            endingLineNumber = "45"
-            landmarkName = "taskForPOSTMethod(_:_:isUdacityRequest:completionHandler:)"
+            startingLineNumber = "143"
+            endingLineNumber = "143"
+            landmarkName = "taskForDELETEMethod(_:isUdacityRequest:completionHandler:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

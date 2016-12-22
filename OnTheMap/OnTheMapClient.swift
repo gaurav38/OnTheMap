@@ -116,6 +116,41 @@ class OnTheMapClient {
         return task
     }
     
+    func taskForDELETEMethod(_ request: URLRequest, isUdacityRequest: Bool, completionHandler: @escaping(_ data: AnyObject?, _ error: String?) -> Void) -> URLSessionDataTask {
+        
+        print(request.url!)
+        let task = session.dataTask(with: request) { (data, response, error) in
+            func sendError(_ error: String) {
+                completionHandler(nil, error)
+            }
+            
+            /* GUARD: Was there an error? */
+            guard (error == nil) else {
+                print("[taskForDELETEMethod]: \(error.debugDescription)")
+                sendError("There was an error with your request")
+                return
+            }
+            
+            /* GUARD: Did we get a successful 2XX response? */
+            guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
+                print("[taskForDELETEMethod]: Request code other than 2xx")
+                sendError("Unsuccessful request.")
+                return
+            }
+            
+            /* GUARD: Was there any data returned? */
+            guard let data = data else {
+                sendError("No data was returned by the request!")
+                return
+            }
+            
+            /* 5/6. Parse the data and use the data (happens in completion handler) */
+            self.convertDataWithCompletionHandler(data, isUdacityRequest, completionHandlerForConvertData: completionHandler)
+        }
+        task.resume()
+        return task
+    }
+    
     private func convertDataWithCompletionHandler(_ data: Data, _ isUdacityData: Bool, completionHandlerForConvertData: (_ result: AnyObject?, _ error: String?) -> Void) {
         
         var newData = data

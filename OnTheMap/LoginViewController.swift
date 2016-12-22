@@ -94,7 +94,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 self.loadStudentsLocations()
             } else {
                 DispatchQueue.main.async {
-                    self.showErrorToUser(error: error!)
+                    self.showErrorToUser(title: "Login failed!", message: error!)
                     self.enableUI()
                     self.activityIndicator.stopAnimating()
                 }
@@ -102,8 +102,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    private func showErrorToUser(error: String) {
-        let alertController = UIAlertController(title: "Login failed!", message: error, preferredStyle: UIAlertControllerStyle.alert)
+    private func showErrorToUser(title: String, message: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
         alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
         self.present(alertController, animated: true, completion: nil)
     }
@@ -119,6 +119,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 print("Got the data!")
             } else {
                 print(error!)
+                DispatchQueue.main.async {
+                    self.showErrorToUser(title: "Failed!", message: "Failed to get students information.")
+                }
             }
             DispatchQueue.main.async {
                 self.activityIndicator.stopAnimating()
